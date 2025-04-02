@@ -1,0 +1,52 @@
+<mvc:View controllerName="de.sycor.packtable.controller.Start"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Page xmlns="sap.m"
+        id="pageId"
+        floatingFooter="true"
+        showHeader="false"
+        busyIndicatorDelay="0"
+        >
+
+       <content>
+            <VBox id="vbox1">
+                 <f:Form
+                        editable="true"
+                        id="form0_1673964184464"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer id="container0">
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>start.title}"
+                                        id="title1"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+                                    <f:FormElement id="element0">
+                                        <f:fields>
+                                            <Button icon="sap-icon://add" text="{i18n>start.buttons.createHU}" press="onCreateHUPress" class="sapUiMediumMarginBottom"/>
+                                            <Button icon="sap-icon://journey-change" text="{i18n>start.buttons.repack}" press="onRepackPress" class="sapUiMediumMarginBottom"/> 
+                                            <Button icon="sap-icon://journey-change" text="{i18n>start.buttons.PMChange}" press="onPMChangePress" class="sapUiMediumMarginBottom"/>
+                                            <Button icon="sap-icon://print" text="{i18n>start.buttons.PrintHU}" press="onPrintHUPress" class="sapUiMediumMarginBottom"/>  
+
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout0" />
+                        </f:layout>
+                    </f:Form>
+            </VBox>
+        </content>
+
+    </Page>
+</mvc:View>

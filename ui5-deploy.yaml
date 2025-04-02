@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: de.sycor.hurepack.hurepack
+type: application
+builder:
+  customTasks:
+    - name: ui5-tooling-transpile-task
+      afterTask: replaceVersion
+      configuration:
+        debug: true
+        transformModulesToUI5:
+          overridesToOverride: true
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: D18
+          url: http://d18:443
+          client: '100'
+        app:
+          name: /SYC00/ML_PAC_TABLE
+          description: Packtisch
+          package: /SYC00/MBLOG
+          transport: D18K901130
+        exclude:
+          - /test/
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**

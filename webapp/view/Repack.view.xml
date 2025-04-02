@@ -1,0 +1,216 @@
+<mvc:View
+	controllerName="de.sycor.packtable.controller.Repack"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+    <Page
+        xmlns="sap.m"
+        id="pageId"
+        floatingFooter="true"
+        showHeader="false"
+        busyIndicatorDelay="0"
+    >
+        <content>
+            <VBox>
+                <items>
+                    <!--Create HU Form - Create HU HUModel>/Action === "A"-->
+                    <f:Form
+                        editable="true"
+                        id="form_createHU" visible="{= ${HUModel>/Action} === 'A' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>repack.createHU.title}"
+                                        id="title11"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+                                    <f:FormElement>
+                                        <f:fields>
+                                            <Input
+                                                width="100%"
+                                                id="idHuLocInput"
+                                                placeholder="{i18n>repack.inputs.huloc.placeholder}"
+                                                value="{HUModel>/Huident}"
+                                                submit="submitLPHU"
+                                                required="true"
+                                                liveChange="LPHUInputChange"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout01" />
+                        </f:layout>
+                    </f:Form>
+
+                    <!--Packing Form - Create HU HUModel>/Action === "B"-->
+                    <f:Form
+                        editable="true"
+                        id="form_repackHU" visible="{= ${HUModel>/Action} === 'B' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>repack.repack.title}"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+                                    <f:FormElement>
+                                        <f:fields>
+                                            <Input
+                                                width="100%"
+                                                id="idHuLocInput2"
+                                                placeholder="{i18n>repack.inputs.huloc.placeholder}"
+                                                value="{HUModel>/Huident}"
+                                                submit="submitLPHU"
+                                                required="true"
+                                                liveChange="LPHUInputChange"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout02" />
+                        </f:layout>
+                    </f:Form>
+
+                    <!--Change HU Form - Create HU HUModel>/Action === "C"-->
+                    <f:Form
+                        editable="true"
+                        id="form_changeHU" visible="{= ${HUModel>/Action} === 'C' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>start.buttons.PMChange}"
+                                        id="title12"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+                                    <f:FormElement>
+                                        <f:fields>
+                                            <Input
+                                                width="100%"
+                                                id="idHuLocInput3"
+                                                placeholder="{i18n>repack.inputs.huloc.placeholder}"
+                                                value="{HUModel>/Huident}"
+                                                submit="submitLPHU"
+                                                required="true"
+                                                liveChange="LPHUInputChange"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout03" />
+                        </f:layout>
+                    </f:Form>
+
+
+                    <!--Change HU Form - Create HU HUModel>/Action === "C"-->
+                    <f:Form
+                        editable="true"
+                        id="form_printHU" visible="{= ${HUModel>/Action} === 'D' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>start.buttons.PrintHU}"
+                                        id="title13"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+                                    <f:FormElement>
+                                        <f:fields>
+                                            <Input
+                                                width="100%"
+                                                id="idHuLocInput4"
+                                                placeholder="{i18n>repack.inputs.hu.placeholder}"
+                                                value="{HUModel>/Huident}"
+                                                submit="submitLPHU"
+                                                required="true"
+                                                liveChange="LPHUInputChange"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout04" />
+                        </f:layout>
+                    </f:Form>
+   
+                </items>
+            </VBox>
+        </content>
+
+        <footer>
+			<OverflowToolbar
+				id="toolbar"
+				busyIndicatorDelay="0"
+			>
+				<Button
+					type="Reject"
+					press="back"
+					text="{i18n>repack.buttons.abort}"
+					id="abortButton"
+					busyIndicatorDelay="0"
+					width="30%"
+				/>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					press="submitHU"
+					text="{i18n>repack.buttons.confirm}"
+					id="bookButton"
+					busyIndicatorDelay="0"
+					width="65%"
+				/>
+				<content/>
+			</OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

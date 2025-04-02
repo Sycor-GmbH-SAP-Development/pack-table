@@ -1,0 +1,317 @@
+<mvc:View
+	controllerName="de.sycor.packtable.controller.Confirmation"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+    <Page
+        xmlns="sap.m"
+        id="pageId"
+        floatingFooter="true"
+        showHeader="false"
+        busyIndicatorDelay="0"
+    >
+        <content>
+            <VBox>
+                <items>
+                    <f:Form
+                        editable="true"
+                        id="form0_pack"
+						visible="{= ${HUModel>/Action} === 'E' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>confirmation.packing.title}"
+                                        id="title2"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+									<f:FormElement
+										id = "confirmationFormElementUnterHU"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>confirmation.packing.inputs.uhu.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="confirmationInputUHU"
+												value="{HUModel>/Huident}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "confirmationFormElementUnterHUType"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>confirmation.packing.inputs.uhutype.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="confirmationInputUHUType"
+												value="({HUModel>/Letyp}) - {HUModel>/Hutyptext}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+    									<f:FormElement
+										id = "confirmationFormElementHauptHU"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>confirmation.packing.inputs.hhu.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="confirmationInputHHU"
+												value="{HUModel2>/Huident}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "confirmationFormElementHauptHUType"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>confirmation.packing.inputs.hhutype.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="confirmationInputHHUType"
+												value="({HUModel2>/Letyp}) - {HUModel>/Hutyptext}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout0" />
+                        </f:layout>
+                    </f:Form>
+
+				<!--Unpacking Form - Auspacken Visible if HUModel>/Action === "A"-->
+                    <f:Form
+                        editable="true"
+                        id="form0_unpack"
+						visible="{= ${HUModel>/Action} === 'A' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>confirmation.unpacking.title}"
+                                        id="title3"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+									<f:FormElement
+										id = "confirmationFormElementHauptHU2"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.hhu.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="repackInputHHU2"
+												value="{HUModel>/Huident} ({HUModel>/Letyp}) - {HUModel>/Hutyptext}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+                                    <f:FormElement
+                                    	id = "confirmationFormElementUnterHU2"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.uhu.label}">
+                                        <f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+                                                id="idUnterHUInput2"
+                                                placeholder="{i18n>repack2.inputs.uhu.placeholder}"
+                                                value="{HUModel2>/Huident} ({HUModel2>/Letyp}) - {HUModel2>/Hutyptext}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                   <f:FormElement
+                                    	id = "confirmationFormElementTargetLocation"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>confirmation.unpacking.inputs.targetlocation.label}">
+                                        <f:fields>
+											<Input
+                                                width="100%"
+                                                id="idTargetLocationInput"
+                                                placeholder="{i18n>confirmation.unpacking.inputs.targetlocation.placeholder}"
+                                                value="{HUModel2>/Nlgpla}"
+                                                submit="submitUnpacking"
+                                                liveChange="inputChange"
+                                                required="true"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                    <f:FormElement
+                                    	id = "confirmationFormElementTargetLocationList"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>confirmation.list.targetlocation.label}">
+                                        <f:fields>
+
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout1" />
+                        </f:layout>
+                    </f:Form>
+
+					<Table id="idTargetLocationTable" items="{/FixPlatzSet}" updateFinished="onTargetLocationTableUpdateFinished" itemPress="onTargetLocationItemPress" visible="{= ${HUModel>/Action} === 'A' ? true : false}">
+						<columns>
+							<Column width="10rem">
+								<Text text="{/#FixPlatzSet/Lgpla/@sap:label}" />
+							</Column>	
+							<Column>
+								<Text text="{/#FixPlatzSet/Lgtyp/@sap:label}" />
+							</Column>
+							<Column>
+								<Text text="{/#FixPlatzSet/Matnr/@sap:label}" />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<ObjectIdentifier title="{Lgpla}" text="{Lgnum}"/>
+									<Text text="{Lgtyp}" />
+									<Text text="{Matnr}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+                </items>
+            </VBox>
+        </content>
+
+        <footer>
+			<OverflowToolbar
+				id="toolbar"
+				busyIndicatorDelay="0"
+			>
+				<Button
+					type="Reject"
+					press="back"
+					text="{i18n>confirmation.buttons.abort}"
+					id="abortButton"
+					busyIndicatorDelay="0"
+					width="30%"
+				/>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					press="submit"
+					text="{i18n>confirmation.buttons.confirm}"
+					id="bookButton"
+					busyIndicatorDelay="0"
+					width="65%"
+				/>
+				<content/>
+			</OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,573 @@
+<mvc:View
+	controllerName="de.sycor.packtable.controller.Repack2"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+    <Page
+        xmlns="sap.m"
+        id="pageId"
+        floatingFooter="true"
+        showHeader="false"
+        busyIndicatorDelay="0"
+    >
+        <content>
+            <VBox>
+                <items>
+				<!--Create HU Form - Einpacken Visible if HUModel>/Action === "A"-->
+                    <f:Form
+                        editable="true"
+                        id="formCreateHU"
+						visible="{= ${HUModel>/Action} === 'A' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>repack2.createHU.title}"
+                                        id="title2"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+									<f:FormElement
+										id = "repackFormElementCreateHULoc"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.createHU.sloc.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="createHULoc"
+												value="{HUModel>/Lgpla}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "repackFormElementCreateHUPmat"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.createHU.pmat.title}"
+									>
+										<f:fields>
+											<ComboBox
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="createHUPMat"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="true"
+												items="{/PackagingMaterialSet}">
+												<core:Item key="{Matnr}" text="{Matnr} - ({Maktx})" />
+											</ComboBox>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "repackFormElementCreateHUQuan"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.createHU.Quan.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="20%"
+												id="createHUQuan"
+												value="{HUModel>/Anzahl}"
+												required="true"
+												type="Number"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="true"
+											/>
+										</f:fields>
+									</f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout0" />
+                        </f:layout>
+                    </f:Form>
+
+				<!--Repack Form - Einpacken Visible if HUModel>/Action === "B"-->
+                    <f:Form
+                        editable="true"
+                        id="formrepackHU"
+						visible="{= ${HUModel>/Action} === 'B' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>repack.repack.title}"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+									<f:FormElement
+										id = "repackFormElementRepackHULoc"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.createHU.sloc.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="repackHULoc"
+												value="{HUModel>/Lgpla}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "repackFormElementRepackHUFrom"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.repackHUFrom.pmat.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="repackHUFrom"
+												value="{HUModel>/Huident}"
+												required="true"
+												busyIndicatorSize="Auto"
+												submit="submitHU"
+												liveChange="submitHU"
+												busyIndicatorDelay="0"
+												editable="true"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "repackFormElementRepackHUTo"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.repackHUTo.pmat.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="repackHUTo"
+												value="{HUModel>/Nhuident}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"																	
+												editable="true"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+                                        xmlns:mvc="sap.ui.core.mvc"
+                                        xmlns="sap.m"
+                                        xmlns:l="sap.ui.layout"
+                                        xmlns:core="sap.ui.core"
+                                        xmlns:f="sap.ui.layout.form"
+                                        label="{i18n>repack2.inputs.repackMatnr.title}"
+                                        id="element5_copy6"
+                                    >
+                                        <f:fields>
+                                            <Input
+                                                xmlns:mvc="sap.ui.core.mvc"
+                                                xmlns:l="sap.ui.layout"
+                                                xmlns:f="sap.ui.layout.form"
+                                                xmlns:core="sap.ui.core"
+                                                xmlns="sap.m"
+                                                width="100%"
+                                                id="repackMatnr"
+                                                value="{HUModel>/Matnr}"
+                                                required="true"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                                editable="true"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                    <f:FormElement
+                                        xmlns:mvc="sap.ui.core.mvc"
+                                        xmlns="sap.m"
+                                        xmlns:l="sap.ui.layout"
+                                        xmlns:core="sap.ui.core"
+                                        xmlns:f="sap.ui.layout.form"
+                                        label="{i18n>repack.quantity.label}"
+                                        id="element5_copy5"
+                                    >
+                                        <f:fields>
+										    <HBox >
+                                            <Input
+                                                xmlns:mvc="sap.ui.core.mvc"
+                                                xmlns:l="sap.ui.layout"
+                                                xmlns:f="sap.ui.layout.form"
+                                                xmlns:core="sap.ui.core"
+                                                xmlns="sap.m"
+                                                width="40%"
+                                                id="repackQuan"
+                                                value="{path : 'HUModel>/Menge', formatter : '.normalizeFormatter'}"
+                                                required="true"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+												type="Number"
+                                                editable="true"
+                                            />
+											<Text
+                                                xmlns:mvc="sap.ui.core.mvc"
+                                                xmlns:l="sap.ui.layout"
+                                                xmlns:f="sap.ui.layout.form"
+                                                xmlns:core="sap.ui.core"
+                                                xmlns="sap.m"
+                                                width="100%"
+                                                id="repackQuanUnit"
+                                                text="{HUModel>/Meins}"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+											</HBox>
+                                        </f:fields>
+                                    </f:FormElement>									
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout1" />
+                        </f:layout>
+                    </f:Form>
+
+<!--Change HU Form - Einpacken Visible if HUModel>/Action === "C"-->
+                    <f:Form
+                        editable="true"
+                        id="formChangeHU"
+						visible="{= ${HUModel>/Action} === 'C' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>start.buttons.PMChange}"
+                                        id="title22"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+									<f:FormElement
+										id = "repackFormElementChangeHULoc"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.createHU.sloc.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="changeHULoc"
+												value="{HUModel>/Lgpla}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "repackFormElementchangeHU"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.repackHUFrom.pmat.title}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="changeHU"
+												value="{HUModel>/Huident}"
+												required="true"
+												busyIndicatorSize="Auto"
+												submit="submitHU"
+												liveChange="submitHU"
+												busyIndicatorDelay="0"
+												editable="true"
+											/>
+										</f:fields>
+									</f:FormElement>									
+									<f:FormElement
+										id = "repackFormElementchangeHUPmat"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.createHU.pmat.title}"
+									>
+										<f:fields>
+											<ComboBox
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="changeHUPMat"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												selectedKey="{HUModel>/PmatGuid}"
+												editable="true"
+												items="{/PackagingMaterialSet}">
+												<core:Item key="{Matnr}" text="{Matnr} - ({Maktx})" />
+											</ComboBox>
+										</f:fields>
+									</f:FormElement>
+									
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout03" />
+                        </f:layout>
+                    </f:Form>										
+
+				<!--Unpacking Form - Auspacken Visible if HUModel>/Action === "A"-->
+                    <!-- <f:Form
+                        editable="true"
+                        id="form0_unpack"
+						visible="{= ${HUModel>/Action} === 'A' ? true : false}"
+                    >
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:title>
+                                    <core:Title
+                                        class="header"
+                                        text="{i18n>repack2.unpacking.title}"
+                                        id="title3"
+                                        level="H2"
+                                    />
+                                </f:title>
+
+                                <f:formElements>
+									<f:FormElement
+										id = "repackFormElementHauptHU2"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.hhu.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="repackInputHHU2"
+												value="{HUModel>/Huident}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement
+										id = "repackFormElementHaupHUType2"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.hhutype.label}"
+									>
+										<f:fields>
+											<Input
+												xmlns:mvc="sap.ui.core.mvc"
+												xmlns:l="sap.ui.layout"
+												xmlns:f="sap.ui.layout.form"
+												xmlns:core="sap.ui.core"
+												xmlns="sap.m"
+												width="100%"
+												id="repackInputHHUType2"
+												value="({HUModel>/Letyp}) - {HUModel>/Hutyptext}"
+												required="true"
+												busyIndicatorSize="Auto"
+												busyIndicatorDelay="0"
+												editable="false"
+											/>
+										</f:fields>
+									</f:FormElement>
+                                    <f:FormElement
+                                    	id = "repackFormElementUnterHU2"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.inputs.uhu.label}">
+                                        <f:fields>
+											<Input
+                                                width="100%"
+                                                id="idUnterHUInput2"
+                                                placeholder="{i18n>repack2.inputs.uhu.placeholder}"
+                                                value="{HUModel2>/Huident}"
+                                                submit="submitHU"
+                                                liveChange="HUInputChange"
+                                                required="true"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+                                    <f:FormElement
+                                    	id = "repackFormElementUHUList"
+										xmlns:mvc="sap.ui.core.mvc"
+										xmlns="sap.m"
+										xmlns:l="sap.ui.layout"
+										xmlns:core="sap.ui.core"
+										xmlns:f="sap.ui.layout.form"
+										label="{i18n>repack2.list.uhu.label}">
+                                        <f:fields>
+
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+
+                        <f:layout>
+                            <f:ResponsiveGridLayout id="layout1" />
+                        </f:layout>
+                    </f:Form> -->
+
+					<!-- <Table id="idUHUTable" items="{/HURepackSet}" updateFinished="onHURepackSetTableUpdateFinished" itemPress="onUHUTableItemPress" visible="{= ${HUModel>/Action} === 'A' ? true : false}">
+						<columns>
+							<Column>
+								<Text text="{i18n>repack2.inputs.uhu.label}" />
+							</Column>	
+							<Column>
+								<Text text="{i18n>repack2.inputs.uhutype.label}" />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<ObjectIdentifier title="{Huident}"/>
+									<Text text="({Letyp}) - {Hutyptext}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table> -->
+                </items>
+            </VBox>
+        </content>
+
+        <footer>
+			<OverflowToolbar
+				id="toolbar"
+				busyIndicatorDelay="0"
+			>
+				<Button
+					type="Reject"
+					press="back"
+					text="{i18n>repack2.buttons.abort}"
+					id="abortButton"
+					busyIndicatorDelay="0"
+					width="30%"
+				/>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					press="submit"
+					text="{i18n>repack2.buttons.confirm}"
+					id="bookButton"
+					busyIndicatorDelay="0"
+					width="65%"
+				/>
+				<content/>
+			</OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

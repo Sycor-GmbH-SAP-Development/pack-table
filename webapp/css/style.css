@@ -1,0 +1,36 @@
+/* Enter your custom styles here */
+.sapUiFormTitleH2 {
+    font-size: 1.4rem !important;
+}
+.sapMPage {
+    background: #fff !important;
+}
+
+.sapUiFormResGrid.sapUiFormBackgrTranslucent {
+    background: transparent !important;
+}
+
+.sapMPageHeader[role=toolbar]::after {
+    position: absolute;
+    content: "";
+    right: 0;
+    width: 100px;
+    height: 100%;
+    margin-right: 0.25rem;
+}
+
+.sapMValueStateMessage {
+    font-size: .9rem;
+}
+
+.sapMLabel {
+    font-size: 1rem;
+}
+
+input.sapMInputBaseInner[readonly=readonly] {
+    font-size: .95rem;
+}
+
+.sapUiVlt, .sapUiHLayout, .sapUiHLayoutChildWrapper {
+    width: 100% !important;
+}
