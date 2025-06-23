@@ -203,7 +203,7 @@
 				<ToolbarSpacer/>
 				<Button
 					type="Accept"
-					press="submitHU"
+					press="submitLPHU"
 					text="{i18n>repack.buttons.confirm}"
 					id="bookButton"
 					busyIndicatorDelay="0"

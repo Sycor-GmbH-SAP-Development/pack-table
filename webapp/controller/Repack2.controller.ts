@@ -13,7 +13,9 @@ import FilterOperator from "sap/ui/model/FilterOperator";
 import Int from "sap/ui/model/odata/type/Int";
 import Table from "sap/m/Table";
 import ListItem from "sap/ui/core/ListItem";
+import Item from "sap/ui/core/Item";
 import Page from "sap/m/Page";
+import MessageToast from "sap/m/MessageToast";
 /**
  * @namespace de.sycor.packtable.controller
  */
@@ -49,36 +51,74 @@ export default class Repack2 extends Controller {
 
         //Set Form Visibility and Focus according to Mode
         if(this._oHUModel.getProperty("/Action") === "A"){
+
           //Create HU
           this.getView().byId("formCreateHU").setVisible(true);
           //this.getView().byId("form0_unpack").setVisible(false);
 
+          //Create Template for Combobox
+          var oPakMatTemplate = new Item({key:"{Matnr}",text:"{Matnr} - ({Maktx})"});
+
+          this.byId("createHUPMat").bindItems({
+            path:"/PackagingMaterialSet",
+            template: oPakMatTemplate,
+                  length: 1000
+          });
+
+     
           //Set Default Value to 1
           this.getView().byId("createHUQuan").setValue(1);
           document.addEventListener("keydown", (e: Event) => {
             let input = this.byId("createHUPMat") as Input;
             const element = e.target as HTMLElement;
-      
+            
             if (input && element.tagName !== "INPUT") {
               input.setValue("");
               input.focus();
             }
           });
+
+          
         }else if(this._oHUModel.getProperty("/Action") === "B"){
+
+          //Reset screen
+          if(this._oHUModel.getProperty("/Scan") === 'LP' || this._oHUModel.getProperty("/Bottom") !== 'X'){
+            this._oHUModel.setProperty("/Matnr", "");
+            this.getView().byId("repackMatnr").setValue("");
+            this._oHUModel.setProperty("/Menge", "");
+            this.getView().byId("repackQuan").setValue("");
+            this._oHUModel.setProperty("/Meins", "");
+            this.getView().byId("repackQuanUnit").setText("");
+            this._oHUModel.setProperty("/PmatGuid", "");
+            this.getView().byId("changeHUPMat").setSelectedKey("");     
+            
+            MessageToast.show(this.resourceBundle.getText("multipleSubHu"),{
+              duration : 3000
+            });
+          }
+
+
           document.addEventListener("keydown", (e: Event) => {
             let input = this.byId("repackHUTo") as Input;
             const element = e.target as HTMLElement;
-      
+
             if (input && element.tagName !== "INPUT") {
               input.setValue("");
               input.focus();
             }
           });          
         }else if(this._oHUModel.getProperty("/Action") === "C"){
+
+          var oPakMatChangeTemplate = new Item({key:"{Matnr}",text:"{Matnr} - ({Maktx})"});
+          this.byId("changeHUPMat").bindItems({
+            path:"/PackagingMaterialSet",
+            template: oPakMatChangeTemplate,
+                  length: 1000
+          });   
+                    
           document.addEventListener("keydown", (e: Event) => {
             let input = this.byId("changeHU") as Input;
-            const element = e.target as HTMLElement;
-
+            const element = e.target as HTMLElement;           
       
             if (input && element.tagName !== "INPUT") {
               input.setValue("");
@@ -89,6 +129,35 @@ export default class Repack2 extends Controller {
         
     }
 
+    public TableUpdateFinished(oEvent : any): void {
+
+      if(this._oHUModel.getProperty("/Action") === "B" && oEvent.getParameter("total") === 0){
+        let oHuTable = this.getView().byId("idUHUTable") as Table;
+    
+        var oFilter: Filter;
+        var oFilters : Array;
+        oFilters = [];
+        if(this._oHUModel.getProperty("/Scan") === 'LP'){
+          oFilter = new Filter("Scan", FilterOperator.EQ, this._oHUModel.getProperty("/Lgpla"));
+          oFilters.push(oFilter);
+          oFilters.push(new Filter("Bottom", FilterOperator.EQ, "X"));
+          oHuTable.getBinding("items").filter(oFilters);
+          //Reset screen
+          this._oHUModel.setProperty("/Huident", "");
+          this.getView().byId("repackHUFrom").setSelectedKey("");           
+        }else if(this._oHUModel.getProperty("/Bottom") !== 'X'){
+          oFilter = new Filter("Scan", FilterOperator.EQ, this._oHUModel.getProperty("/Huident"));
+          oFilters.push(oFilter);
+          oFilters.push(new Filter("Bottom", FilterOperator.EQ, "X"));
+          oHuTable.getBinding("items").filter(oFilters);   
+          //Reset screen
+          this._oHUModel.setProperty("/Huident", "");
+          this.getView().byId("repackHUFrom").setSelectedKey("");             
+        }        
+      }
+      
+     
+    }
 
     public back(): void {
         loadView("Start", this.viewController);
@@ -294,6 +363,15 @@ export default class Repack2 extends Controller {
 
 
       }
+      
+      public onUHUTableItemPress(oEvent: any): void{
+        let oItem = oEvent.getParameter("listItem");
+
+        this._oHUModel.setProperty("/Huident", oItem.getBindingContext().getProperty("Huident"));
+
+        this.getView().byId("repackHUFrom").setValue(oItem.getBindingContext().getProperty("Huident"));
+        this.getView().byId("repackHUFrom").fireSubmit();
+      }
 
       public submitHU(oEvent : any): void {
          var input = oEvent.getSource();
@@ -310,6 +388,8 @@ export default class Repack2 extends Controller {
         this.getView().byId("repackQuanUnit").setText("");
         this._oHUModel.setProperty("/PmatGuid", "");
         this.getView().byId("changeHUPMat").setSelectedKey("");
+        this._oHUModel.setProperty("/Scan", "");
+        this._oHUModel.setProperty("/Bottom", "");
         model.read("/PackagingTableSet", {
           success: (data: any) => {
             if (data.results.length === 0) {
@@ -335,6 +415,14 @@ export default class Repack2 extends Controller {
               this.getView().byId("repackQuanUnit").setText(data.results[0].Meins);
               this._oHUModel.setProperty("/PmatGuid", data.results[0].PmatGuid);
               this.getView().byId("changeHUPMat").setSelectedKey(data.results[0].PmatGuid);
+              this._oHUModel.setProperty("/Scan", data.results[0].Scan);
+              this._oHUModel.setProperty("/Bottom", data.results[0].Bottom);
+              
+              //Reset Sub-HU table
+              this.getView().byId("idUHUTable").getBinding("items").filter(null);
+              this.getView().byId("idUHUTable").getModel().refresh(true);
+              this.onInit();
+              
             }
   
           },
@@ -362,6 +450,8 @@ export default class Repack2 extends Controller {
     
           }, filters : [oFilter]
         });
+
+        
       }
 
       public normalizeFormatter(number: string): string {

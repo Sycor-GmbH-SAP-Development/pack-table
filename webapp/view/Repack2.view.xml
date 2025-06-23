@@ -84,9 +84,8 @@
 												required="true"
 												busyIndicatorSize="Auto"
 												busyIndicatorDelay="0"
-												editable="true"
-												items="{/PackagingMaterialSet}">
-												<core:Item key="{Matnr}" text="{Matnr} - ({Maktx})" />
+												editable="true">
+											
 											</ComboBox>
 										</f:fields>
 									</f:FormElement>
@@ -191,7 +190,7 @@
 												required="true"
 												busyIndicatorSize="Auto"
 												submit="submitHU"
-												liveChange="submitHU"
+												
 												busyIndicatorDelay="0"
 												editable="true"
 											/>
@@ -289,7 +288,34 @@
                                             />
 											</HBox>
                                         </f:fields>
-                                    </f:FormElement>									
+                                    </f:FormElement>	
+									<f:FormElement xmlns:mvc="sap.ui.core.mvc"
+                                        xmlns="sap.m"
+                                        xmlns:l="sap.ui.layout"
+                                        xmlns:core="sap.ui.core"
+                                        xmlns:f="sap.ui.layout.form"
+                                        label="{i18n>includedHU}"
+                                        id="element5_copy11"
+                                    >
+										<Table id="idUHUTable" items="{/PackagingTableSet}" updateFinished="TableUpdateFinished" itemPress="onUHUTableItemPress" visible="{= ${HUModel>/Action} === 'B' ? true : false}">
+											<columns>
+												<Column>
+													<Text text="{i18n>repack.inputs.hu.placeholder}" />
+												</Column>	
+												<Column>
+													<Text text="{i18n>repack2.inputs.repackMatnr.title}" />
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem type="Active">
+													<cells>
+														<ObjectIdentifier title="{Huident}"/>
+														<Text text="{Matnr}" />
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>	
+					</f:FormElement>																	
                                 </f:formElements>
                             </f:FormContainer>
                         </f:formContainers>
@@ -297,6 +323,8 @@
                         <f:layout>
                             <f:ResponsiveGridLayout id="layout1" />
                         </f:layout>
+
+					
                     </f:Form>
 
 <!--Change HU Form - Einpacken Visible if HUModel>/Action === "C"-->
@@ -393,9 +421,8 @@
 												busyIndicatorSize="Auto"
 												busyIndicatorDelay="0"
 												selectedKey="{HUModel>/PmatGuid}"
-												editable="true"
-												items="{/PackagingMaterialSet}">
-												<core:Item key="{Matnr}" text="{Matnr} - ({Maktx})" />
+												editable="true">
+												
 											</ComboBox>
 										</f:fields>
 									</f:FormElement>

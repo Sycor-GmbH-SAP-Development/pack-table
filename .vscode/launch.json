@@ -52,6 +52,32 @@
         "FIORI_TOOLS_BACKEND_CONFIG": "[{\"destination\":\"D18\",\"url\":\"http://d18:443\",\"path\":\"/sap\"}]",
         "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
       }
+    },
+    {
+      "name": "pack-table-aq1",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "index.html"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/pack-table\"}",
+        "FIORI_TOOLS_BACKEND_CONFIG": "[{\"destination\":\"AQ1_HTTPS\",\"url\":\"http://d18:443\",\"path\":\"/sap\"}]",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
+      }
     }
   ]
 }

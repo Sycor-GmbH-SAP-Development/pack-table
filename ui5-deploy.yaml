@@ -23,7 +23,7 @@ builder:
           name: /SYC00/ML_PAC_TABLE
           description: Packtisch
           package: /SYC00/MBLOG
-          transport: D18K901130
+          transport: D18K901186
         exclude:
           - /test/
   resources:
