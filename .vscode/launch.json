@@ -15,9 +15,6 @@
         "--open",
         "index.html"
       ],
-      "windows": {
-        "runtimeExecutable": "npx.cmd"
-      },
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
       "outputCapture": "std",
@@ -59,9 +56,6 @@
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npx",
-      "windows": {
-        "runtimeExecutable": "npx.cmd"
-      },
       "runtimeArgs": [
         "fiori",
         "run"

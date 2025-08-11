@@ -32,7 +32,7 @@
                                         <f:fields>
                                             <Button icon="sap-icon://add" text="{i18n>start.buttons.createHU}" press="onCreateHUPress" class="sapUiMediumMarginBottom"/>
                                             <Button icon="sap-icon://journey-change" text="{i18n>start.buttons.repack}" press="onRepackPress" class="sapUiMediumMarginBottom"/> 
-                                            <Button icon="sap-icon://journey-change" text="{i18n>start.buttons.PMChange}" press="onPMChangePress" class="sapUiMediumMarginBottom"/>
+                                            <!-- <Button icon="sap-icon://journey-change" text="{i18n>start.buttons.PMChange}" press="onPMChangePress" class="sapUiMediumMarginBottom"/> -->
                                             <Button icon="sap-icon://print" text="{i18n>start.buttons.PrintHU}" press="onPrintHUPress" class="sapUiMediumMarginBottom"/>  
 
                                         </f:fields>

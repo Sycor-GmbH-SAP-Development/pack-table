@@ -84,6 +84,7 @@
 												required="true"
 												busyIndicatorSize="Auto"
 												busyIndicatorDelay="0"
+												filterSecondaryValues="true"
 												editable="true">
 											
 											</ComboBox>
@@ -190,9 +191,8 @@
 												required="true"
 												busyIndicatorSize="Auto"
 												submit="submitHU"
-												
 												busyIndicatorDelay="0"
-												editable="true"
+												editable="false"
 											/>
 										</f:fields>
 									</f:FormElement>
@@ -244,7 +244,33 @@
                                                 required="true"
                                                 busyIndicatorSize="Auto"
                                                 busyIndicatorDelay="0"
-                                                editable="true"
+                                                editable="false"
+                                            />
+                                        </f:fields>
+                                    </f:FormElement>
+									<f:FormElement
+                                        xmlns:mvc="sap.ui.core.mvc"
+                                        xmlns="sap.m"
+                                        xmlns:l="sap.ui.layout"
+                                        xmlns:core="sap.ui.core"
+                                        xmlns:f="sap.ui.layout.form"
+                                        label="{i18n>batch}"
+                                        id="element5_batch"
+                                    >
+                                        <f:fields>
+                                            <Input
+                                                xmlns:mvc="sap.ui.core.mvc"
+                                                xmlns:l="sap.ui.layout"
+                                                xmlns:f="sap.ui.layout.form"
+                                                xmlns:core="sap.ui.core"
+                                                xmlns="sap.m"
+                                                width="100%"
+                                                id="repackBatch"
+                                                value="{HUModel>/Charg}"
+                                                required="true"
+                                                busyIndicatorSize="Auto"
+                                                busyIndicatorDelay="0"
+                                                editable="false"
                                             />
                                         </f:fields>
                                     </f:FormElement>

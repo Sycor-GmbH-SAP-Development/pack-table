@@ -16,6 +16,7 @@ import ListItem from "sap/ui/core/ListItem";
 import Item from "sap/ui/core/Item";
 import Page from "sap/m/Page";
 import MessageToast from "sap/m/MessageToast";
+import Integer from "sap/ui/model/type/Integer";
 /**
  * @namespace de.sycor.packtable.controller
  */
@@ -57,7 +58,7 @@ export default class Repack2 extends Controller {
           //this.getView().byId("form0_unpack").setVisible(false);
 
           //Create Template for Combobox
-          var oPakMatTemplate = new Item({key:"{Matnr}",text:"{Matnr} - ({Maktx})"});
+          var oPakMatTemplate = new Item({key:"{Matnr}",text:"{Matnr} {Maktx}"});
 
           this.byId("createHUPMat").bindItems({
             path:"/PackagingMaterialSet",
@@ -207,9 +208,19 @@ export default class Repack2 extends Controller {
           success: (data: any) => {
   
               MessageBox.success(this.resourceBundle.getText("confirmation.dialog.createHU.text") + " " + data.HusCreated, {
+                  actions:["HU Drucken", MessageBox.Action.CLOSE],
                   title: this.resourceBundle.getText("confirmation.messagebox.success.title"),
-                  onClose: () => {
+                  onClose: (oAction) => {
+                    if(oAction === "CLOSE"){
+                      alert("close");
                       loadView("Start", this.viewController);
+                    }else{
+                      //Split Created HU String and insert into array
+                      var oPrintHUs = data.HusCreated.split(",");
+                      //Print HU's
+                      this.printCreatedHu(oPrintHUs);
+                    }
+                      
                   }
               });
   
@@ -356,13 +367,98 @@ export default class Repack2 extends Controller {
           }
       });
       }
-
-
-      
-      
-
-
       }
+
+      public printCreatedHu(oHuList : Array): void {
+        const toolbar = this.byId("toolbar") as Toolbar;    
+        toolbar.setBusy(true);
+        
+        const model = this.getOwnerComponent()?.getModel() as ODataModel;
+        
+        var oFilter;
+
+        if(oHuList.length > 0){
+
+          oFilter = new Filter("Scan", FilterOperator.EQ, oHuList[0]) as Filter;
+
+          model.read("/PackagingTableSet", {
+            success: (data: any) => {
+      
+              console.log(data.results);
+  
+              var oEntry = data.results[0];
+              oEntry.Action = "D";
+              
+              data.Action = "D";
+              this._oHUModel.setData(oEntry);
+
+  
+              //PrintHU
+              oEntry.Huident = oHuList[0];
+              oEntry.PmatGuid = "";
+              model.create("/PackagingTableSet", oEntry, {
+                success: (data: any) => {
+
+                    if(oHuList.length === 1){
+                      this._page.setBusy(false);
+                      toolbar.setBusy(false);  
+                      
+                      MessageBox.success("HU's erfolgreich gedruckt", {
+                          title: this.resourceBundle.getText("confirmation.messagebox.success.title"),
+                          onClose: () => {
+                              loadView("Start", this.viewController);
+                          }
+                      });
+                      
+                    }else{
+                      oHuList.splice(0,1);
+                      this.printCreatedHu(oHuList);
+                    }
+        
+                },
+                error: (error: any) => {
+                
+                console.log(error);
+                let oResponseText = JSON.parse(error.responseText);
+                let sErrorText = oResponseText.error.message.value || "start.errors.internal-errorrepack.errors.internal-error";
+                MessageBox.error(sErrorText);
+                this._page.setBusy(false);
+                  
+                }
+            });
+              
+              
+            },
+            error: (error: any) => {
+              console.log(error);
+      
+              if (error.statusCode == 500)
+                MessageBox.error(
+                  this.resourceBundle.getText(
+                    "repack.errors.internal-error"
+                  ) as string,
+                  {
+                    title: this.resourceBundle.getText(
+                      "repack.messagebox.error.title"
+                    ) as string
+                  }
+                );
+              else {
+                input.setValueState(ValueState.Error);
+                input.setValueStateText(
+                  this.resourceBundle.getText("repack.errors.huloc-exists") as string
+                );
+                input.openValueStateMessage();
+              }
+      
+              input.setBusy(false);
+              toolbar.setBusy(false);
+            }, filters : [oFilter]
+          });
+        }
+
+
+      }      
       
       public onUHUTableItemPress(oEvent: any): void{
         let oItem = oEvent.getParameter("listItem");
